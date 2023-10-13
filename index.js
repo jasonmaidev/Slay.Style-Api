@@ -46,7 +46,7 @@ app.use("/apparels", apparelRoutes);
 app.use("/styles", styleRoutes);
 
 /* Mongoose Setup */
-const PORT = process.env.PORT || 6001;
+const PORT = process.env.PORT || 3000;
 // mongoose.set('strictQuery', false)
 mongoose
   .connect(process.env.MONGO_URL, {
