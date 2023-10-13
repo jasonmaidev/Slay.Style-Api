@@ -46,7 +46,7 @@ app.use("/apparels", apparelRoutes);
 app.use("/styles", styleRoutes);
 
 /* Mongoose Setup */
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 6001;
 // mongoose.set('strictQuery', false)
 mongoose
   .connect(process.env.MONGO_URL, {
@@ -54,6 +54,6 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(async () => {
-    app.listen(PORT, "0.0.0.0", () => console.log(`Server Port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
   })
   .catch((error) => console.log(`${error} failed to connect.`));
