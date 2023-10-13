@@ -6,45 +6,45 @@ import { v4 as uuidv4 } from "uuid"
 import sharp from "sharp"
 
 /* Register User */
-// export const register = async (req, res) => {
-//   try {
-//     const {
-//       firstName,
-//       lastName,
-//       email,
-//       password,
-//       picturePath,
-//       // guestUser,
-//       // friendUser
-//     } = req.body
+export const register = async (req, res) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      picturePath,
+      // guestUser,
+      // friendUser
+    } = req.body
 
-//     const salt = await bcrypt.genSalt()
-//     const passwordHash = await bcrypt.hash(password, salt)
+    const salt = await bcrypt.genSalt()
+    const passwordHash = await bcrypt.hash(password, salt)
 
-//     const file = req.file
-//     const imageName = uuidv4()
+    const file = req.file
+    const imageName = uuidv4()
 
-//     const fileBuffer = await sharp(file.buffer)
-//       .resize({ height: 300, width: 300, quality: 100 })
-//       .toBuffer()
+    const fileBuffer = await sharp(file.buffer)
+      .resize({ height: 300, width: 300, quality: 100 })
+      .toBuffer()
 
-//     await uploadFile(fileBuffer, imageName, file.mimetype)
+    await uploadFile(fileBuffer, imageName, file.mimetype)
 
-//     const newUser = new User({
-//       firstName,
-//       lastName,
-//       email,
-//       password: passwordHash,
-//       picturePath: imageName,
-//       // guestUser,
-//       // friendUser
-//     })
-//     const savedUser = await newUser.save()
-//     res.status(201).json(savedUser)
-//   } catch (error) {
-//     res.status(500).json({ Attention: error.message })
-//   }
-// }
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      picturePath: imageName,
+      // guestUser,
+      // friendUser
+    })
+    const savedUser = await newUser.save()
+    res.status(201).json(savedUser)
+  } catch (error) {
+    res.status(500).json({ Attention: error.message })
+  }
+}
 
 /* Login User */
 export const login = async (req, res) => {
