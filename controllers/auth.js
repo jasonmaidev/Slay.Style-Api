@@ -39,8 +39,10 @@ export const register = async (req, res) => {
       // guestUser,
       // friendUser
     })
-    const savedUser = await newUser.save()
-    res.status(201).json(savedUser)
+    // const savedUser = await newUser.save()
+
+    console.log("Register is not ready yet.")
+    // res.status(201).json(savedUser)
   } catch (error) {
     res.status(500).json({ Attention: error.message })
   }
