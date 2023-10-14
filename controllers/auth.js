@@ -39,7 +39,7 @@ export const register = async (req, res) => {
       lastName,
       email,
       password: passwordHash,
-      picturePath: imageName,
+      // picturePath: imageName,
       guestUser,
       friendUser
     })
