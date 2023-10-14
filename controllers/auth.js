@@ -28,7 +28,7 @@ export const register = async (req, res) => {
       .resize({ height: 300, width: 300, quality: 100 })
       .toBuffer()
 
-    await uploadFile(fileBuffer, imageName, file.mimetype)
+    // await uploadFile(fileBuffer, imageName, file.mimetype)
 
     const newUser = new User({
       firstName,
