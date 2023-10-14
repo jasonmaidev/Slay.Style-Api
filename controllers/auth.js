@@ -14,21 +14,25 @@ export const register = async (req, res) => {
       email,
       password,
       picturePath,
-      // guestUser,
-      // friendUser
+      guestUser,
+      friendUser
     } = req.body
 
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(password, salt)
 
-    const file = req.file
-    const imageName = uuidv4()
+    if (req.file) {
+      const file = req.file
+      const imageName = uuidv4()
 
-    const fileBuffer = await sharp(file.buffer)
-      .resize({ height: 300, width: 300, quality: 100 })
-      .toBuffer()
+      console.log("Test before sending for upload: ", file, imageName)
 
-    // await uploadFile(fileBuffer, imageName, file.mimetype)
+      // const fileBuffer = await sharp(file.buffer)
+      //   .resize({ height: 300, width: 300, quality: 100 })
+      //   .toBuffer()
+
+      // await uploadFile(fileBuffer, imageName, file.mimetype)
+    }
 
     const newUser = new User({
       firstName,
@@ -36,11 +40,11 @@ export const register = async (req, res) => {
       email,
       password: passwordHash,
       picturePath: imageName,
-      // guestUser,
-      // friendUser
+      guestUser,
+      friendUser
     })
-    // const savedUser = await newUser.save()
-    // res.status(201).json(savedUser)
+    const savedUser = await newUser.save()
+    res.status(201).json(savedUser)
   } catch (error) {
     res.status(500).json({ Attention: error.message })
   }

@@ -33,14 +33,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    // friendUser: {
-    //   type: Boolean,
-    //   default: false
-    // },
-    // guestUser: {
-    //   type: Boolean,
-    //   default: true
-    // },
+    friendUser: {
+      type: Boolean,
+      default: false
+    },
+    guestUser: {
+      type: Boolean,
+      default: true
+    },
   },
   { timestamps: true }
 );
