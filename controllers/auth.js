@@ -21,30 +21,29 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(password, salt)
 
-    if (req.file) {
-      const file = req.file
-      const imageName = uuidv4()
+    // if (req.file) {
+    //   const file = req.file
+    //   const imageName = uuidv4()
 
-      console.log("Test before sending for upload: ", file, imageName)
+    //   const fileBuffer = await sharp(file.buffer)
+    //     .resize({ height: 300, width: 300, quality: 100 })
+    //     .toBuffer()
 
-      // const fileBuffer = await sharp(file.buffer)
-      //   .resize({ height: 300, width: 300, quality: 100 })
-      //   .toBuffer()
-
-      // await uploadFile(fileBuffer, imageName, file.mimetype)
-    }
+    //   await uploadFile(fileBuffer, imageName, file.mimetype)
+    // }
 
     const newUser = new User({
       firstName,
       lastName,
       email,
       password: passwordHash,
-      picturePath: "guestProfilePic.png",
+      picturePath: "guestProfilePic.png", // replace with 'imageName' when ready
       guestUser,
       friendUser
     })
-    const savedUser = await newUser.save()
-    res.status(201).json(savedUser)
+    // const savedUser = await newUser.save()
+    // res.status(201).json(savedUser)
+    res.status(403).send("Slay.Style is currently in closed beta. To request a demo, please send an email to jason@jsmai.dev")
   } catch (error) {
     res.status(500).json({ Attention: error.message })
   }
