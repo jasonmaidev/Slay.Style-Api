@@ -2,6 +2,12 @@ import Style from "../models/Style.js"
 
 // Save Style
 export const createStyle = async (req, res) => {
+  const dailyAllowedSaves = parseInt(req.params.dailyAllowedSaves)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedSaves < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed save limit for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   try {
     const { userId, name, headwear, shorttops, longtops, outerwear, onepiece, pants, shorts, footwear, occasions, isFavorite } = req.body
     const newStyle = new Style({
@@ -121,6 +127,12 @@ export const getStyle = async (req, res) => {
 
 // Update / edit style
 export const updateStyle = async (req, res) => {
+  const dailyAllowedEdits = parseInt(req.params.dailyAllowedEdits)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedEdits < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed edit limit for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   const updates = await Object.keys(req.body)
   const alllowedUpdates = [
     'name',
@@ -143,7 +155,6 @@ export const updateStyle = async (req, res) => {
 
   try {
     const { id } = req.params
-    const { userId } = req.body
     const style = await Style.findById(id)
 
     if (!style) {
@@ -162,6 +173,12 @@ export const updateStyle = async (req, res) => {
 
 // Delete style
 export const deleteStyle = async (req, res) => {
+  const dailyAllowedDeletes = parseInt(req.params.dailyAllowedDeletes)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedDeletes < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed deletion limit for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   try {
     const style = await Style.findOneAndDelete({ _id: req.params.id })
 

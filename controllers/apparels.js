@@ -7,6 +7,12 @@ import mongoose from "mongoose"
 
 // Upload Apparel
 export const createApparel = async (req, res) => {
+  const dailyAllowedUploads = parseInt(req.params.dailyAllowedUploads)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedUploads < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed upload limit for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   try {
     const { userId, picturePath, name, section, colors, category, brand, own, description } = req.body
     const file = req.file
@@ -147,6 +153,12 @@ export const getApparel = async (req, res) => {
 
 // Update / edit apparel
 export const updateApparel = async (req, res) => {
+  const dailyAllowedEdits = parseInt(req.params.dailyAllowedEdits)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedEdits < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed edit limit for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   const updates = Object.keys(req.body)
   const alllowedUpdates =
     [
@@ -181,6 +193,12 @@ export const updateApparel = async (req, res) => {
 
 // Delete apparel
 export const deleteApparel = async (req, res) => {
+  const dailyAllowedDeletes = parseInt(req.params.dailyAllowedDeletes)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedDeletes < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed deletion limit for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   try {
     const apparel = await Apparel.find({ _id: req.params.id })
     await deleteFile(apparel[0].picturePath) // Delete image from S3
@@ -197,6 +215,12 @@ export const deleteApparel = async (req, res) => {
 
 // Delete Demo apparel on guest user accounts
 export const deleteDemoApparel = async (req, res) => {
+  const dailyAllowedDeletes = parseInt(req.params.dailyAllowedDeletes)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedDeletes < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed upload deletions for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   try {
     const apparel = await Apparel.findOneAndDelete({ _id: req.params.id })
 
@@ -211,6 +235,12 @@ export const deleteDemoApparel = async (req, res) => {
 
 // Reset Wardrobe Apparels and Styles
 export const resetWardrobe = async (req, res) => {
+  const dailyAllowedResets = parseInt(req.params.dailyAllowedResets)
+  const guestUser = req.params.guestUser
+  if (guestUser === "true" && dailyAllowedResets < 1) {
+    return res.status(429).send({ Message: "You've reached the daily allowed reset limit for guest accounts. Please try again when the refresh timer expires." })
+  }
+
   try {
     const { userId } = req.params
     await Apparel.deleteMany({ userId })

@@ -39,10 +39,10 @@ router.get("/:userId/footwear", verifyToken, cache('3 seconds'), getFootwear)
 router.get("/:userId/headwear", verifyToken, cache('3 seconds'), getHeadwear)
 router.get("/:userId/:id", verifyToken, cache('2 seconds'), getApparel)
 
-router.post("/", verifyToken, upload.single("picture"), createApparel)
-router.post("/:userId/resetwardrobe", verifyToken, resetWardrobe)
-router.patch("/:id/update", verifyToken, updateApparel)
-router.delete("/:id/delete", verifyToken, deleteApparel)
-router.delete("/:id/deletedemo", verifyToken, deleteDemoApparel)
+router.post("/:guestUser/:dailyAllowedUploads", verifyToken, upload.single("picture"), createApparel)
+router.post("/:userId/resetwardrobe/:guestUser/:dailyAllowedResets", verifyToken, resetWardrobe)
+router.patch("/:id/update/:guestUser/:dailyAllowedEdits", verifyToken, updateApparel)
+router.delete("/:id/delete/:guestUser/:dailyAllowedDeletes", verifyToken, deleteApparel)
+router.delete("/:id/deletedemo/:guestUser/:dailyAllowedDeletes", verifyToken, deleteDemoApparel)
 
 export default router
