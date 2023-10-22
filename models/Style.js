@@ -46,10 +46,10 @@ const StyleSchema = mongoose.Schema(
       type: Array,
       default: []
     },
-    isFavorite: {
-      type: Boolean,
-      default: false
-    }
+    // isFavorite: {
+    //   type: Boolean,
+    //   default: false
+    // }
   },
   { timestamps: true }
 );

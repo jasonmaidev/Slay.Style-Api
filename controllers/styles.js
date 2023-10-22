@@ -9,7 +9,7 @@ export const createStyle = async (req, res) => {
   }
 
   try {
-    const { userId, name, headwear, shorttops, longtops, outerwear, onepiece, pants, shorts, footwear, occasions, isFavorite } = req.body
+    const { userId, name, headwear, shorttops, longtops, outerwear, onepiece, pants, shorts, footwear, occasions } = req.body
     const newStyle = new Style({
       userId,
       name,
@@ -21,8 +21,7 @@ export const createStyle = async (req, res) => {
       pants,
       shorts,
       footwear,
-      occasions,
-      isFavorite
+      occasions
     })
     const empty = (!headwear && !shorttops && !longtops && !outerwear && !onepiece && !pants && !shorts && !footwear)
     if (empty) {
@@ -145,7 +144,7 @@ export const updateStyle = async (req, res) => {
     'shorts',
     'footwear',
     'occasions',
-    'isFavorite'
+    // 'isFavorite'
   ]
   const isValidOperation = updates.every((update) => alllowedUpdates.includes(update))
 
