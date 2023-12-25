@@ -44,7 +44,7 @@ export const register = async (req, res) => {
     //   const savedUser = await newUser.save()
     //   res.status(201).json(savedUser)
 
-    res.status(403).send("Slay.Style is currently in closed beta. To request a demo, please send an email to jason.saberxdev@gmail.com")
+    res.status(403).send("Please login with your guest crendentials. If you haven't received it yet, simply reach out to jason.saberxdev@gmail.com")
   } catch (error) {
     res.status(500).json({ Attention: error.message })
   }
