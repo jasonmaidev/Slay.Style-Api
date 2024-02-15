@@ -163,9 +163,6 @@ export const updateApparel = async (req, res) => {
   const alllowedUpdates =
     [
       "name",
-      // "section", 
-      // "picturePath", 
-      // "picture"
     ]
   const isValidOperation = updates.every((update) => alllowedUpdates.includes(update))
 
