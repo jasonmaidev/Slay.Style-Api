@@ -4,13 +4,12 @@ const UserSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
-      // required: true,
+      required: true,
       min: 2,
       max: 50,
     },
     lastName: {
       type: String,
-      // required: true,
       min: 2,
       max: 50,
     },
@@ -27,7 +26,8 @@ const UserSchema = new mongoose.Schema(
     },
     picturePath: {
       type: String,
-      default: "",
+      default: "guestProfilePic.png",
+      required: true
     },
     style: {
       type: String,
