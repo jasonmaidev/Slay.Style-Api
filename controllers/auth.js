@@ -37,7 +37,7 @@ export const register = async (req, res) => {
       lastName,
       email,
       password: passwordHash,
-      picturePath: imageName || "guestProfilePic.png", // replace with 'imageName' when ready
+      picturePath: "guestProfilePic.png", // replace with 'imageName' when ready
       guestUser,
       friendUser
     })
