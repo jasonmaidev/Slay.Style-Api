@@ -1,50 +1,50 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import User from "../models/User.js"
-// import { uploadFile } from "../aws/s3.js"
-// import { v4 as uuidv4 } from "uuid"
-// import sharp from "sharp"
+import { uploadFile } from "../aws/s3.js"
+import { v4 as uuidv4 } from "uuid"
+import sharp from "sharp"
 
 /* Register User */
 export const register = async (req, res) => {
   try {
-    // const {
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   password,
-    //   picturePath,
-    //   guestUser,
-    //   friendUser
-    // } = req.body
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      picturePath,
+      guestUser,
+      friendUser
+    } = req.body
 
-    // const salt = await bcrypt.genSalt()
-    // const passwordHash = await bcrypt.hash(password, salt)
+    const salt = await bcrypt.genSalt()
+    const passwordHash = await bcrypt.hash(password, salt)
 
-    // if (req.file) {
-    //   const file = req.file
-    //   const imageName = uuidv4()
+    if (req.file) {
+      const file = req.file
+      const imageName = uuidv4()
 
-    //   const fileBuffer = await sharp(file.buffer)
-    //     .resize({ height: 300, width: 300, quality: 100 })
-    //     .toBuffer()
+      const fileBuffer = await sharp(file.buffer)
+        .resize({ height: 300, width: 300, quality: 100 })
+        .toBuffer()
 
-    //   await uploadFile(fileBuffer, imageName, file.mimetype)
-    // }
+      await uploadFile(fileBuffer, imageName, file.mimetype)
+    }
 
-    // const newUser = new User({
-    //   firstName,
-    //   lastName,
-    //   email,
-    //   password: passwordHash,
-    //   picturePath: "guestProfilePic.png", // replace with 'imageName' when ready
-    //   guestUser,
-    //   friendUser
-    // })
-    // const savedUser = await newUser.save()
-    // res.status(201).json(savedUser)
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password: passwordHash,
+      picturePath: imageName || "guestProfilePic.png", // replace with 'imageName' when ready
+      guestUser,
+      friendUser
+    })
+    const savedUser = await newUser.save()
+    res.status(201).json(savedUser)
 
-    res.status(403).send("Please login with the provided guest crendentials. If you haven't received it yet, simply reach out to jasonmxdev@gmail.com")
+    res.status(403).send("Registration open until March 10th, 2024.")
   } catch (error) {
     res.status(500).json({ Attention: error.message })
   }
