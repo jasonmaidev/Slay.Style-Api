@@ -9,7 +9,7 @@ import authRoutes from "./routes/auth.js"
 import userRoutes from "./routes/users.js"
 import apparelRoutes from "./routes/apparels.js"
 import styleRoutes from "./routes/styles.js"
-// import { rateLimit } from 'express-rate-limit'
+import { rateLimit } from 'express-rate-limit'
 
 dotenv.config()
 
@@ -40,15 +40,15 @@ const corsOptions = {
 // app.use(cors(corsOptions))
 app.use(cors())
 
-// const apiLimiter = rateLimit({
-//   windowMs: 60 * 1000, // minute
-//   limit: 200, // Limit each IP to 100 requests per `window` (here, per 1 minute)
-//   standardHeaders: 'draft-7', // Set `RateLimit` and `RateLimit-Policy` headers
-//   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-// })
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000, // minute
+  limit: 200, // Limit each IP to 100 requests per `window` (here, per 1 minute)
+  standardHeaders: 'draft-7', // Set `RateLimit` and `RateLimit-Policy` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
 
-// // Apply the rate limiting middleware to all API calls
-// app.use(apiLimiter)
+// Apply the rate limiting middleware to all API calls
+app.use(apiLimiter)
 
 /* Routes */
 app.use("/auth", authRoutes);
