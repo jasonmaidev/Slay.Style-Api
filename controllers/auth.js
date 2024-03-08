@@ -21,23 +21,21 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt()
     const passwordHash = await bcrypt.hash(password, salt)
 
-    if (req.file) {
-      const file = req.file
-      const imageName = uuidv4()
+    const file = req.file
+    const imageName = uuidv4()
 
-      const fileBuffer = await sharp(file.buffer)
-        .resize({ height: 300, width: 300, quality: 100 })
-        .toBuffer()
+    const fileBuffer = await sharp(file.buffer)
+      .resize({ height: 300, width: 300, quality: 100 })
+      .toBuffer()
 
-      await uploadFile(fileBuffer, imageName, file.mimetype)
-    }
+    await uploadFile(fileBuffer, imageName, file.mimetype)
 
     const newUser = new User({
       firstName,
       lastName,
       email,
       password: passwordHash,
-      picturePath: imageName, // replace with 'imageName' when ready, use "guestProfilePic.png" for guests
+      picturePath: imageName || "guestProfilePic.png", // replace with 'imageName' when ready, use "guestProfilePic.png" for guests
       guestUser,
       friendUser
     })
