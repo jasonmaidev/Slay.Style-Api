@@ -44,7 +44,8 @@ export const register = async (req, res) => {
     const savedUser = await newUser.save()
     res.status(201).json(savedUser)
 
-    res.status(403).send("Registration open until March 10th, 2024.")
+    // set this when disabling registration
+    // res.status(403).send("Registration open until March 10th, 2024.")
   } catch (error) {
     res.status(500).json({ Attention: error.message })
   }
