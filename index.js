@@ -23,7 +23,7 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 
 const allowedOrigins = [
-  'https://slay.style'
+  'https://slayxstyle.netlify.app/'
 ]
 
 const corsOptions = {
